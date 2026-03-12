@@ -1,0 +1,27 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: ansible/ansible-test-auth@main
+      - name: Check out code
+        uses: actions/checkout@v5
+      - name: Set up Python 3.14
+        uses: actions/setup-python@v6
+        with:
+          python-version: 3.14
+      - name: Install ansible-core
+        run: pip install ansible-core
+      - name: Patch ansible-test
+        run: python -c 'import ansible_test; import pathlib; import shutil; shutil.copy("gha.py", pathlib.Path(ansible_test.__file__).parent / "_internal/ci/gha.py")'
+      - name: Test GHA support
+        run: cd ansible_collections/ansible/core && ansible-test integration -v --remote alpine/3.22 --remote-stage dev
