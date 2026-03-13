@@ -22,6 +22,7 @@ from . import (
 )
 
 CODE = 'gha'
+JOB_ID_ENV_VAR = 'ANSIBLE_TEST_GHA_JOB_ID'
 ARTIFACT_ID_ENV_VAR = 'ANSIBLE_TEST_GHA_SSH_KEY_ARTIFACT_ID'
 
 
@@ -34,7 +35,7 @@ class GitHubActions(CIProvider):
     @staticmethod
     def is_supported() -> bool:
         """Return True if this provider is supported in the current running environment."""
-        return ARTIFACT_ID_ENV_VAR in os.environ
+        return JOB_ID_ENV_VAR in os.environ and ARTIFACT_ID_ENV_VAR in os.environ
 
     @property
     def code(self) -> str:
@@ -84,7 +85,7 @@ class GitHubActions(CIProvider):
                 config=config,
                 repository_owner=owner,
                 repository_name=name,
-                run_id=int(os.environ['GITHUB_RUN_ID']),
+                job_id=int(os.environ[JOB_ID_ENV_VAR]),
                 artifact_id=int(os.environ[ARTIFACT_ID_ENV_VAR]),
             )
         except KeyError as ex:
