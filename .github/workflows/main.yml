@@ -20,8 +20,6 @@ jobs:
         with:
           python-version: 3.14
       - name: Install ansible-core
-        run: pip install ansible-core
-      - name: Patch ansible-test
-        run: python -c 'import ansible_test; import pathlib; import shutil; shutil.copy("gha.py", pathlib.Path(ansible_test.__file__).parent / "_internal/ci/gha.py")'
+        run: pip install git+https://github.com/mattclay/ansible.git@at-gha2
       - name: Test GHA support
-        run: cd ansible_collections/ansible/core && ansible-test integration -v --remote alpine/3.22 --remote-stage dev
+        run: cd ansible_collections/ansible/core && ansible-test integration -v --remote alpine/3.23 --remote-stage dev
