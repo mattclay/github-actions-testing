@@ -50,9 +50,8 @@ class GitHubActions(CIProvider):
     def generate_resource_prefix(self) -> str:
         """Return a resource prefix specific to this CI provider."""
         keys = [
-            'GITHUB_REPOSITORY_ID',
-            'GITHUB_RUN_ID',
-            'GITHUB_RUN_ATTEMPT',
+            'GITHUB_REPOSITORY',
+            JOB_ID_ENV_VAR,
         ]
 
         try:
