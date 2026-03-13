@@ -26,6 +26,6 @@ jobs:
         with:
           python-version: 3.14
       - name: Install ansible-core
-        run: pip install git+https://github.com/mattclay/ansible.git@at-gha2
+        run: pip install git+https://github.com/ansible/ansible.git@devel
       - name: Test GHA support
         run: cd ansible_collections/ansible/core && ansible-test integration -v --remote alpine/3.23 --remote-stage dev
