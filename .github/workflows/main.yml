@@ -11,6 +11,12 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        job:
+          - J001
+          - J002
+          - J003
     steps:
       - uses: ansible/ansible-test-auth@main
       - name: Check out code
