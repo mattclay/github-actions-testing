@@ -12,7 +12,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: ansible/ansible-test-auth@main
+      - uses: ansible/ansible-test-auth@v1
       - name: Check out code
         uses: actions/checkout@v5
       - name: Set up Python 3.14
