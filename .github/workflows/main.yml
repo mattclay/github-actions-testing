@@ -11,11 +11,6 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        job:
-          - J001
-          - J002
     steps:
       - uses: ansible/ansible-test-auth@main
       - name: Check out code
@@ -27,4 +22,5 @@ jobs:
       - name: Install ansible-core
         run: pip install git+https://github.com/ansible/ansible.git@devel
       - name: Test GHA support
-        run: cd ansible_collections/ansible/core && ansible-test integration -v --remote alpine/3.23 --remote-stage dev
+        run: ansible-test integration -v
+        working-directory: ansible_collections/ansible/core
